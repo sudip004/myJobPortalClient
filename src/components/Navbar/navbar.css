@@ -1,0 +1,318 @@
+.navContainer {
+    width: 100%;
+    height: 10rem;
+    background: var(--c1-color);
+
+}
+
+.navheader {
+    width: 100%;
+    height: 4rem;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navlogo {
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    width: 10rem;
+    height: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: #FFF;
+    background: transparent;
+
+    margin-left: 1rem;
+}
+
+.headerlinks {
+    width: 28rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 0.8rem;
+    background-color: transparent;
+
+}
+
+.headerlinks a {
+    text-decoration: none;
+    /* removes underline */
+    color: #FFF;
+    /* change to any text color */
+    font-weight: 500;
+    transition: color 0.3s;
+    /* letter-spacing: 0.2rem; */
+    background-color: transparent;
+}
+
+.headerlinks a:hover {
+    color: #007bff;
+    background: transparent;
+    /* hover color */
+}
+
+.headerlinks span {
+    font-size: 16px;
+    color: inherit;
+    background: transparent;
+    /* optional text styling */
+}
+
+.headerProfiles {
+    width: 15rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    background: transparent;
+}
+
+.prifilePic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 0.5px solid #FFF;
+    background: transparent;
+    overflow: hidden;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+
+.prifilePic>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.settingicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 0.5px solid #FFF;
+    background: transparent;
+}
+
+.Allerm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 0.5px solid #FFF;
+    background: transparent;
+}
+
+.llooggiinn {
+    width: 4rem;
+    height: 1.5rem;
+    background: #007bff;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    color: #FFF;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+.llooggiinn:hover {
+    transform: scaleX(1.1);
+}
+
+
+
+
+/* container part */
+.navbodyContainerr {
+    width: 100%;
+    height: 4rem;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navsections {
+    position: relative;
+    width: 15rem;
+    height: 90%;
+    margin-top: 1.2rem;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0.5px solid var(--base-color);
+}
+
+.navsections>p {
+    width: 10rem;
+    font-size: 1.1rem;
+    color: #FFF;
+    background: transparent;
+    padding: 0.8rem;
+    font-weight: 500;
+}
+
+.range {
+    width: 15rem;
+    height: 90%;
+    margin-top: 1.2rem;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    
+}
+
+.downArrowIcon {
+    background: transparent;
+    color: #FFF;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+}
+
+.menuErapper {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: transparent;
+    position: relative;
+    display: inline-block;
+}
+
+.openmenuonHover {
+    position: absolute;
+    right: 1rem;
+    top: 2.7rem;
+    width: 13rem;
+    height: 6.8rem;
+    background: #FFF;
+    background: #FFF;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 5px;
+    overflow: hidden;
+    gap: 0.4rem;
+}
+.openmenuonHover>p {
+    width: 100%;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    color: #000;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem;
+    cursor: pointer;
+
+}
+.openmenuonHover>p:hover {
+    background: #007bff;
+    color: #FFF;
+    padding-bottom: 0.5rem;
+    border-radius: 10px;
+}
+
+/* .menuErapper:hover .openmenuonHover{
+    display: block;
+} */
+
+.range>label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #FFF;
+    background: transparent;
+}
+
+.range>input {
+    width: 70%;
+    height: 1.1rem;
+}
+
+
+
+
+
+
+.settingiconedit {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #242424;
+    color: #FFF;
+    cursor: pointer;
+}
+
+
+
+
+/* for Open One */
+.openmenuonHoverONE {
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
+    width: 13rem;
+    height: 6.8rem;
+    background: #FFF;
+    background: #FFF;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 5px;
+    overflow: hidden;
+    gap: 0.4rem;
+}
+.openmenuonHoverONE>p {
+    width: 100%;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    color: #000;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem;
+    cursor: pointer;
+
+}
+.openmenuonHoverONE>p:hover {
+    background: #007bff;
+    color: #FFF;
+    padding-bottom: 0.5rem;
+    border-radius: 10px;
+}

@@ -1,0 +1,90 @@
+.mainContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--c1-color);
+}
+.wrapperContainer{
+    width: 20rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--c2-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px #ffd700;
+    padding: 1rem;
+    gap: 1rem;
+    border: 0.8px solid  #FFF;
+}
+.wrapperContainer>h1{
+    color: #d6b80b;
+    font-size: 1.9rem;
+    text-align: center;
+    background: transparent;
+    text-decoration: underline;
+}
+.wrapperContainer>p{
+    color: #d6b80b;
+    font-size: 0.9rem;
+    background: transparent;
+}
+.wrapperContainer> input{
+   width: 97%;
+    height: 2.4rem;
+    border-radius: 0.9rem;
+    border: 0.8px solid #FFF;
+    padding: 1.2rem 1.1rem;
+    background-color: var(--c2-color);
+    color: #FFF;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 5px #ffd700;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;   
+}
+
+
+.wrapperContainer> button{
+    width: 97%;
+    height: 2.4rem;
+    border-radius: 0.9rem;
+    border: 0.8px solid #FFF;
+    background-color: var(--c2-color);
+    color: #FFF;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 5px #ffd700;
+    font-family: 'Poppins', sans-serif;   
+}
+.wrapperContainer> button:hover{
+    background-color: #d6b80b;
+    color: #000;
+}
+.wrapperContainer> button:active{
+    background-color: #b89a0a;
+    color: #000;
+}
+
+.wrapperContainer>p>span{
+    color: #d6b80b;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    letter-spacing: 0.1rem;
+}
+.wrapperContainer>p>span>a{
+    color: #d6b80b;
+    background: transparent;
+}
+.myinput[type='file']{
+    padding-top: 0.4rem;
+    background: transparent;
+}

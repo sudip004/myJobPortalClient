@@ -1,0 +1,166 @@
+.cardContainer{
+    width: 20rem;
+    height: 19rem;
+    border: 0.6px solid #242424;
+    margin: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+.cardContainer:hover{
+transform: scaleX(1.02);
+}
+.innerContainer{
+    width: 19.1rem;
+    height: 14rem;
+
+   border-radius: 15px;
+   background: #FFE4E1;
+}
+.datecardcontain{
+display: flex;
+align-items: center;
+justify-content: center;
+
+display: flex;
+justify-content: space-between;
+background: transparent;
+}
+.cardcontaindatelist{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+width: 7rem;
+height: 2rem;
+border-radius: 20px;
+font-size: 0.9rem;
+font-weight: 600;
+margin-left: 0.8rem;
+
+}
+.cardicon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+width: 2.5rem;
+height: 2.5rem;
+border: 1px solid black;
+border-radius: 50%;
+margin-right: 0.5rem;
+}
+.iconEdit{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.cardHeadingContain{
+width: 100%;
+height: 5rem;
+
+background: transparent;
+}
+.cardHeadingContain > p{
+font-size: 0.9rem;
+font-weight: 500;
+background: transparent;
+margin-left: 0.6rem;
+}
+.CardConatinImg{
+display: flex;
+gap: 1rem;
+align-items: center;
+justify-content: space-between;
+background: transparent;
+}
+.CardConatinImg > h2{
+    font-size: 1.5rem;
+    background: transparent;
+    margin-left: 0.8rem;
+}
+.CardImage{
+    width: 2.9rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-right:0.8rem;
+    background: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.cardOptions{
+width: 100%;
+height: 4rem;
+
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+background: transparent;
+margin-top: 0.9rem;
+}
+.cardOptions > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
+    height: 1.5rem;
+    padding: 0.8rem 0.6rem;
+    border: 0.5px solid #242424;
+    background: transparent;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    margin-left: 0.8rem;
+}
+.implementExprence{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
+    height: 1.5rem;
+    padding: 0.8rem 0.6rem;
+    border: 0.5px solid #f7f0f0;
+    background: #a52d05;
+    color: #e73434;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 20px;
+    margin-left: 0.8rem;
+}
+.outerContainerCard{
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.outerContainerCard > div{
+width: 100%;
+font-size: 1.1rem;
+font-weight: 600;
+
+margin-left: 1rem;
+
+}
+.outerContainerCard>button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+width: 8rem;
+height: 2.5rem;
+padding: 1rem 1rem;
+border: none;
+outline: none;
+border-radius: 20px;
+background-color: #242424;
+color: #FFE4E1;
+margin-right: 0.5rem;
+cursor: pointer;
+transition: 0.3s ease-in;
+}
+.outerContainerCard>button:hover{
+    transform: scaleX(1.09);
+}

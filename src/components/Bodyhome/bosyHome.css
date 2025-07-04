@@ -1,0 +1,180 @@
+.bodyHomeContainer {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+/* left container */
+.leftboxContainer{
+width: 19%;
+height: 100%;
+margin-left: 0.2rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 1rem;
+}
+.leftboxContainer > img{
+width: 10rem;
+height: 12rem;
+border-radius: 20px;
+}
+
+.leftSideBodyContainer-1{
+width: 15rem;
+height: 16rem;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: flex-start;
+gap: 0.8rem;
+border-right: 0.5px solid #2424244D;
+}
+.leftSideBodyContainer-1>p{
+font-size: 1rem;
+font-weight: 600;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+letter-spacing: 0.6px;
+opacity: 0.9;
+margin-left: 2rem;
+}
+.checkboxFilter{
+    width: 100%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: flex-start;
+gap: 0.5rem;
+
+}
+.checkboxFilter>p{
+font-size: 0.9rem;
+opacity: 0.5;
+margin-left: 2rem;
+}
+.checkboxFilter> div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+font-size: 1rem;
+font-weight: 500;
+opacity: 0.8;
+
+}
+.checkboxFilter>div>input{
+    margin-right: 0.8rem;
+    margin-left: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* // right container box  */
+.rightboxContainer{
+    width: 80%;
+    height: 100%;
+    
+}
+.homebodyHeadding{
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+height: 3.5rem;
+margin-top: 1rem;
+}
+.homebodyHeadding > h2{
+font-size: 1.9rem;
+font-weight: 700;
+color: #242424;
+margin-left: 0.9rem;
+}
+.homebodyHeadding > h2 > span{
+margin-left: 1rem;
+font-size: 1rem;
+font-weight: 600;
+width: 5rem;
+height: 4rem;
+padding:0.3rem 1rem;
+border-radius: 20px;
+border: 1px solid #242424;
+
+}
+.homebodyHeadding > div{
+margin-right: 10px;
+font-size: 0.7rem;
+}
+.homebodyHeadding > div > span{
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+
+.cardContainContainer{
+width: 100%;
+height: 100%;
+display: flex;
+flex-wrap: wrap;
+gap: 0.2rem;
+overflow-y: scroll;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Scrollbar width */
+.cardContainContainer::-webkit-scrollbar {
+  width: 4px; /* Set width of the scrollbar track */
+}
+
+/* Scrollbar thumb (the draggable part) */
+.cardContainContainer::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 10px;
+  width: 1px; /* Not visible here, use in ::-webkit-scrollbar */
+}
+
+/* Scrollbar track (background) */
+.cardContainContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
