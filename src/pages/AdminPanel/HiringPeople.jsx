@@ -55,8 +55,8 @@ const HiringPeople = () => {
             <div className={styles.list}>
                 {
                     data?.map((item, idx) => (
-                        <div className={`${styles.wrapperCon} ${drwerOpen ? styles.wrapperConExpanded : ''}`}>
-                            <div className={styles.wrapper}>
+                        <div className={`${styles.wrapperCon} ${drwerOpen ? styles.wrapperConExpanded : ''}`} key={idx}>
+                            <div className={styles.wrapper}>    
                                 <h3>Name : {item.companyName || "Demo"}</h3>
                                 <p>Job Title : {item.jobTitle}</p>
                                 <p>Location : {item.location || "Bengaluru"}</p>

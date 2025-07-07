@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,16 +6,131 @@
 }
 
 
-:root{
-  font-size: 100%;
---base-color: #FFFFFF;
---c1-color: #242424;
+:root {
+  --font-size: 100%;
+  --base-color: #FFFFFF;
+  --c1-color: #242424;
 }
 
 
-.appmainConainer{
-  width:100% ;
+.appmainConainer {
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width: 1930px) {
+  :root {
+    --font-size: 100%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1830px) {
+  :root {
+    --font-size: 99%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1730px) {
+  :root {
+    --font-size: 98%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1630px) {
+  :root {
+    --font-size: 96%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1530px) {
+  :root {
+    --font-size: 95%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1430px) {
+  :root {
+    --font-size: 93%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1330px) {
+  :root {
+    --font-size: 91%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1230px) {
+  :root {
+    --font-size: 90%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1130px) {
+  :root {
+    --font-size: 85%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 1030px) {
+  :root {
+    --font-size: 80%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 930px) {
+  :root {
+    --font-size: 75%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 830px) {
+  :root {
+    --font-size: 60%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 730px) {
+  :root {
+    --font-size: 55%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 630px) {
+  :root {
+    --font-size: 50%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 530px) {
+  :root {
+    --font-size: 40%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 430px) {
+  :root {
+    --font-size: 30%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 330px) {
+  :root {
+    --font-size: 22%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 230px) {
+  :root {
+    --font-size: 18%;
+    font-size: var(--font-size);
+  }
+}
+@media screen and (max-width: 130px) {
+  :root {
+    --font-size: 15%;
+    font-size: var(--font-size);
+  }
 }

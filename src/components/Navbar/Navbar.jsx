@@ -35,7 +35,7 @@ const Navbar = ({ curUser, filters, setFilters }) => {
     return (
         <div className="navContainer">
             <div className="navheader">
-                <h2 className='navlogo'> J0B Dakho</h2>
+                <h2 className='navlogo'> J0B PLANET</h2>
                 <div className='headerlinks'>
                     <Link to={"/home"}><span style={pathname == '/home' ? { color: "#DAA520", borderBottom: "2px solid #DAA520" } : {}}>Find JoB</span></Link>
                     <Link to={"/hiring"}><span style={pathname == '/hiring' ? { color: "#DAA520", borderBottom: "2px solid #DAA520" } : {}}>Create JOB</span></Link>

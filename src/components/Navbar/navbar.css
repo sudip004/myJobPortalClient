@@ -24,8 +24,10 @@
     letter-spacing: 0.8px;
     color: #FFF;
     background: transparent;
-
+    color: #bd37fc;
     margin-left: 1rem;
+    font-size: 1.5rem;
+    font-family:'Times New Roman', Times, serif
 }
 
 .headerlinks {
@@ -41,6 +43,7 @@
 }
 
 .headerlinks a {
+    font-size: 1rem;
     text-decoration: none;
     /* removes underline */
     color: #FFF;
@@ -58,7 +61,7 @@
 }
 
 .headerlinks span {
-    font-size: 16px;
+    font-size: 1rem;
     color: inherit;
     background: transparent;
     /* optional text styling */
@@ -248,7 +251,7 @@
 } */
 
 .range>label {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #FFF;
     background: transparent;
@@ -256,9 +259,30 @@
 
 .range>input {
     width: 70%;
-    height: 1.1rem;
+    font-size: 0.5rem;
+    height: 1rem;
 }
 
+/* Responsive font sizing */
+@media (max-width: 768px) {
+  .range > label {
+    font-size: 1rem;
+  }
+
+  .range > input {
+    height: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .range > label {
+    font-size: 0.9rem;
+  }
+
+  .range > input {
+    height: 0.9rem;
+  }
+}
 
 
 

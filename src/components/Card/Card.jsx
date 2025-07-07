@@ -8,7 +8,7 @@ import ZustandStore from '../../Zustand/ZustandStore';
 import { toast } from 'react-toastify';
 
 
-const Card = ({ color, img, key, creatorId, companyName, jobTitle,
+const Card = ({ color, img, creatorId, companyName, jobTitle,
     money, experienceLevel, jobDescription, jobID, date, isSaved }) => {
 
     const navigate = useNavigate();

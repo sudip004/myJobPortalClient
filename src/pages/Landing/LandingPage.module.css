@@ -25,6 +25,8 @@
     font-weight: 600;
     background: transparent;
     margin-left:1.5rem ;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(218, 76, 247);
 }
 .landingNav > div{
     display: flex;

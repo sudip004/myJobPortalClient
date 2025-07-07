@@ -160,6 +160,8 @@ color: #FFE4E1;
 margin-right: 0.5rem;
 cursor: pointer;
 transition: 0.3s ease-in;
+font-size: 1rem;
+letter-spacing: 0.2px;
 }
 .outerContainerCard>button:hover{
     transform: scaleX(1.09);

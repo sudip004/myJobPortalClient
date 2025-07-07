@@ -11,7 +11,7 @@ const LandingPage = () => {
   return (
     <div className={styles.mainConatiner}>
        <div className={styles.landingNav}>
-        <h1>J0B-PlanaTe</h1>
+        <h1>J0B-PlanET</h1>
         <div>
             <button onClick={()=> navigate('/register')}>Register</button>
             <button onClick={()=> navigate('/login')}>Login</button>
