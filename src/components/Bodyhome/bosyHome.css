@@ -1,187 +1,889 @@
 .bodyHomeContainer {
     width: 100%;
-    /* height: 30rem; */
     display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    min-height: calc(100vh - 200px);
+}
+
+/* ========================= */
+/* LEFT SIDEBAR FILTERS */
+/* ========================= */
+
+.leftboxContainer {
+    width: 280px;
+    min-width: 280px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    overflow: hidden;
+    position: sticky;
+    top: 120px;
 }
 
-/* left container */
-.leftboxContainer{
-width: 19%;
-height: 100%;
-margin-left: 0.2rem;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 1rem;
-}
-.leftboxContainer > img{
-width: 10rem;
-height: 12rem;
-border-radius: 1.4rem;
-margin-top: 1.7rem;
-object-fit: cover;
-}
-
-.leftSideBodyContainer-1{
-width: 15rem;
-height: 16rem;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: flex-start;
-gap: 0.8rem;
-border-right: 0.5px solid #2424244D;
-}
-.leftSideBodyContainer-1>p{
-font-size: 1rem;
-font-weight: 600;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-letter-spacing: 0.6px;
-opacity: 0.9;
-margin-left: 2rem;
-}
-.checkboxFilter{
-    width: 100%;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: flex-start;
-gap: 0.5rem;
-
-}
-.checkboxFilter>p{
-font-size: 0.9rem;
-opacity: 0.5;
-margin-left: 2rem;
-}
-.checkboxFilter> div{
+.filterHeader {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-font-size: 1rem;
-font-weight: 500;
-opacity: 0.8;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+}
 
+.filterTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
-.checkboxFilter>div>input{
-    margin-right: 0.8rem;
-    margin-left: 2rem;
+
+.filterTitle svg {
+    color: var(--primary);
+    font-size: 1.3rem;
 }
-.checkboxFilter>div>input[type="checkbox"]{
-    width: 1rem;
-    height: 1rem;
+
+.filterTitle h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.clearFiltersBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    color: #ef4444;
+    font-size: 0.85rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* // right container box  */
-.rightboxContainer{
-    width: 80%;
-    height: 100%;
-    
-}
-.homebodyHeadding{
-display: flex;
-align-items: center;
-justify-content: space-between;
-width: 100%;
-height: 3.5rem;
-margin-top: 1rem;
-}
-.homebodyHeadding > h2{
-font-size: 1.9rem;
-font-weight: 700;
-color: #242424;
-margin-left: 0.9rem;
-}
-.homebodyHeadding > h2 > span{
-margin-left: 1rem;
-font-size: 1rem;
-font-weight: 600;
-width: 5rem;
-height: 4rem;
-padding:0.3rem 1rem;
-border-radius: 20px;
-border: 1px solid #242424;
-
-}
-.homebodyHeadding > div{
-margin-right: 10px;
-font-size: 0.7rem;
-}
-.homebodyHeadding > div > span{
-    font-size: 0.8rem;
-    font-weight: 400;
+.clearFiltersBtn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
 }
 
-
-.cardContainContainer{
-width: 100%;
-height: 100%;
-display: flex;
-flex-wrap: wrap;
-gap: 0.2rem;
-overflow-y: scroll;
-
+.clearFiltersBtn svg {
+    font-size: 1rem;
 }
 
+.leftSideBodyContainer-1 {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
 
+.filterSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
+.filterSectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+}
 
+.filterSectionTitle svg {
+    color: var(--primary);
+    font-size: 1.1rem;
+}
 
+.filterSectionTitle p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
 
+.checkboxFilter {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
 
+/* Custom Checkbox Styling */
+.customCheckbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 2rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
 
+.customCheckbox:hover {
+    padding-left: 2.3rem;
+}
 
+.customCheckbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
 
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
 
+.customCheckbox:hover .checkmark {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
 
+.customCheckbox input:checked ~ .checkmark {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-color: var(--primary);
+}
 
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
 
+.customCheckbox input:checked ~ .checkmark::after {
+    display: block;
+}
 
+.checkboxLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(203, 213, 225, 0.9);
+    transition: color 0.3s ease;
+}
 
+.customCheckbox:hover .checkboxLabel {
+    color: white;
+}
 
+/* ========================= */
+/* RIGHT CONTENT AREA */
+/* ========================= */
 
+.rightboxContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
 
+.homebodyHeadding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0.5rem;
+}
 
+.homebodyHeadding > h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+}
 
+.jobCountBadge {
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+}
 
+.sortContainer {
+    position: relative;
+}
 
+.sortButton {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: rgba(203, 213, 225, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
+.sortButton:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--primary);
+}
 
+.sortButton span {
+    font-weight: 600;
+    color: white;
+}
 
+.sortButton svg {
+    color: var(--primary);
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
 
+.sortButton svg.rotated {
+    transform: rotate(180deg);
+}
 
+.sortDropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 220px;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    overflow: hidden;
+    animation: slideDown 0.3s ease;
+}
 
+.sortOption {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    color: rgba(203, 213, 225, 0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+    position: relative;
+}
 
+.sortOption:last-child {
+    border-bottom: none;
+}
 
-/* Scrollbar width */
+.sortOption::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+}
+
+.sortOption:hover,
+.sortOption.active {
+    background: rgba(99, 102, 241, 0.15);
+    color: white;
+    padding-left: 1.5rem;
+}
+
+.sortOption:hover::before,
+.sortOption.active::before {
+    transform: scaleY(1);
+}
+
+.sortOption svg {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+/* ========================= */
+/* CARD GRID */
+/* ========================= */
+
+.cardContainContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 0.5rem;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+/* ========================= */
+/* LOADING SKELETON */
+/* ========================= */
+
+.cardSkeleton {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.skeletonHeader {
+    height: 60px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 10px;
+}
+
+.skeletonTitle {
+    height: 24px;
+    width: 70%;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 6px;
+}
+
+.skeletonText {
+    height: 16px;
+    width: 100%;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 4px;
+}
+
+.skeletonText.short {
+    width: 60%;
+}
+
+.skeletonFooter {
+    height: 40px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 10px;
+    margin-top: 0.5rem;
+}
+
+/* ========================= */
+/* EMPTY STATE */
+/* ========================= */
+
+.emptyState {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    gap: 1rem;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    color: rgba(99, 102, 241, 0.3);
+    margin-bottom: 1rem;
+}
+
+.emptyState h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.emptyState p {
+    font-size: 1rem;
+    color: rgba(203, 213, 225, 0.7);
+    max-width: 400px;
+    margin: 0;
+}
+
+.clearFiltersEmptyBtn {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clearFiltersEmptyBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
+
+/* ========================= */
+/* SCROLLBAR STYLING */
+/* ========================= */
+
 .cardContainContainer::-webkit-scrollbar {
-  width: 4px; /* Set width of the scrollbar track */
+    width: 6px;
 }
 
-/* Scrollbar thumb (the draggable part) */
 .cardContainContainer::-webkit-scrollbar-thumb {
-  background-color: blue;
-  border-radius: 10px;
-  width: 1px; /* Not visible here, use in ::-webkit-scrollbar */
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 10px;
 }
 
-/* Scrollbar track (background) */
 .cardContainContainer::-webkit-scrollbar-track {
-  background: transparent;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+/* ========================= */
+/* RESPONSIVE DESIGN */
+/* ========================= */
+
+@media (max-width: 1200px) {
+    .bodyHomeContainer {
+        padding: 1.2rem;
+    }
+
+    .leftboxContainer {
+        width: 260px;
+        min-width: 260px;
+    }
+
+    .cardContainContainer {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 1024px) {
+    .bodyHomeContainer {
+        padding: 1rem;
+        gap: 1.2rem;
+    }
+
+    .leftboxContainer {
+        width: 240px;
+        min-width: 240px;
+    }
+
+    .cardContainContainer {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .homebodyHeadding > h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .bodyHomeContainer {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1.2rem;
+        min-height: auto;
+    }
+
+    .leftboxContainer {
+        width: 100%;
+        min-width: 100%;
+        position: relative;
+        top: 0;
+        order: 1;
+    }
+
+    .filterHeader {
+        padding: 0.9rem 1.2rem;
+    }
+
+    .filterTitle h3 {
+        font-size: 1rem;
+    }
+
+    .leftSideBodyContainer-1 {
+        padding: 1.2rem;
+    }
+
+    .rightboxContainer {
+        order: 2;
+        width: 100%;
+    }
+
+    .homebodyHeadding {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0.5rem 0;
+    }
+
+    .homebodyHeadding > h2 {
+        font-size: 1.5rem;
+        gap: 0.8rem;
+    }
+
+    .jobCountBadge {
+        font-size: 0.85rem;
+    }
+
+    .sortContainer {
+        width: 100%;
+    }
+
+    .sortButton {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sortDropdown {
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    .cardContainContainer {
+        grid-template-columns: 1fr;
+        max-height: none;
+        gap: 1.2rem;
+        padding: 0;
+    }
+
+    .emptyState {
+        padding: 3rem 1.5rem;
+    }
+
+    .emptyIcon {
+        font-size: 3.5rem;
+    }
+
+    .emptyState h3 {
+        font-size: 1.4rem;
+    }
+
+    .emptyState p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .bodyHomeContainer {
+        padding: 0.8rem;
+        gap: 1rem;
+    }
+
+    .filterHeader {
+        padding: 0.8rem 1rem;
+    }
+
+    .filterTitle {
+        gap: 0.6rem;
+    }
+
+    .filterTitle svg {
+        font-size: 1.2rem;
+    }
+
+    .filterTitle h3 {
+        font-size: 0.95rem;
+    }
+
+    .clearFiltersBtn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .leftSideBodyContainer-1 {
+        padding: 1rem;
+    }
+
+    .filterSectionTitle {
+        padding-bottom: 0.6rem;
+    }
+
+    .filterSectionTitle svg {
+        font-size: 1rem;
+    }
+
+    .filterSectionTitle p {
+        font-size: 0.9rem;
+    }
+
+    .checkboxFilter {
+        gap: 0.7rem;
+    }
+
+    .checkboxLabel {
+        font-size: 0.85rem;
+    }
+
+    .homebodyHeadding > h2 {
+        font-size: 1.3rem;
+    }
+
+    .jobCountBadge {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.8rem;
+    }
+
+    .sortButton {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .sortOption {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .cardContainContainer {
+        gap: 1rem;
+    }
+
+    .emptyState {
+        padding: 2.5rem 1.2rem;
+    }
+
+    .emptyIcon {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bodyHomeContainer {
+        padding: 0.6rem;
+        gap: 0.8rem;
+    }
+
+    .filterHeader {
+        padding: 0.7rem 0.9rem;
+        border-radius: 10px;
+    }
+
+    .filterTitle h3 {
+        font-size: 0.9rem;
+    }
+
+    .filterTitle svg {
+        font-size: 1.1rem;
+    }
+
+    .clearFiltersBtn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .clearFiltersBtn svg {
+        font-size: 0.9rem;
+    }
+
+    .leftSideBodyContainer-1 {
+        padding: 0.9rem;
+        border-radius: 10px;
+    }
+
+    .filterSectionTitle {
+        gap: 0.5rem;
+    }
+
+    .filterSectionTitle svg {
+        font-size: 0.95rem;
+    }
+
+    .filterSectionTitle p {
+        font-size: 0.85rem;
+    }
+
+    .checkboxFilter {
+        gap: 0.6rem;
+    }
+
+    .customCheckbox {
+        padding-left: 1.8rem;
+    }
+
+    .customCheckbox:hover {
+        padding-left: 2rem;
+    }
+
+    .checkmark {
+        height: 18px;
+        width: 18px;
+    }
+
+    .checkmark::after {
+        left: 5px;
+        top: 1px;
+        width: 4px;
+        height: 9px;
+    }
+
+    .checkboxLabel {
+        font-size: 0.8rem;
+    }
+
+    .homebodyHeadding {
+        padding: 0.3rem 0;
+        gap: 0.8rem;
+    }
+
+    .homebodyHeadding > h2 {
+        font-size: 1.15rem;
+        gap: 0.6rem;
+    }
+
+    .jobCountBadge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.7rem;
+        border-radius: 15px;
+    }
+
+    .sortButton {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.8rem;
+        border-radius: 8px;
+    }
+
+    .sortButton svg {
+        font-size: 1rem;
+    }
+
+    .sortDropdown {
+        border-radius: 10px;
+    }
+
+    .sortOption {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    .sortOption svg {
+        font-size: 0.9rem;
+    }
+
+    .cardContainContainer {
+        gap: 0.8rem;
+        padding: 0.2rem;
+    }
+
+    .cardSkeleton {
+        padding: 1.2rem;
+        border-radius: 14px;
+    }
+
+    .emptyState {
+        padding: 2rem 1rem;
+    }
+
+    .emptyIcon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .emptyState h3 {
+        font-size: 1.15rem;
+    }
+
+    .emptyState p {
+        font-size: 0.85rem;
+        max-width: 300px;
+    }
+
+    .clearFiltersEmptyBtn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .bodyHomeContainer {
+        padding: 0.5rem;
+        gap: 0.7rem;
+    }
+
+    .filterHeader {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .filterTitle h3 {
+        font-size: 0.85rem;
+    }
+
+    .leftSideBodyContainer-1 {
+        padding: 0.8rem;
+    }
+
+    .filterSectionTitle p {
+        font-size: 0.8rem;
+    }
+
+    .checkboxLabel {
+        font-size: 0.75rem;
+    }
+
+    .homebodyHeadding > h2 {
+        font-size: 1.05rem;
+    }
+
+    .jobCountBadge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+    }
+
+    .sortButton {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .sortOption {
+        padding: 0.65rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .cardContainContainer {
+        gap: 0.7rem;
+    }
+
+    .emptyState {
+        padding: 1.8rem 0.8rem;
+    }
+
+    .emptyState h3 {
+        font-size: 1.05rem;
+    }
+
+    .emptyState p {
+        font-size: 0.8rem;
+    }
 }

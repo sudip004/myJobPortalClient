@@ -1,0 +1,52 @@
+.homePageContainer {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #020617 100%);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Loading Spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================= */
+/* RESPONSIVE DESIGN */
+/* ========================= */
+
+@media (max-width: 768px) {
+  .homePageContainer {
+    min-height: 100dvh;
+  }
+}
+
+@media (max-width: 480px) {
+  .homePageContainer {
+    background: linear-gradient(180deg, #0f172a 0%, #1a1f3a 70%, #020617 100%);
+  }
+}

@@ -1,88 +1,197 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './HiringPeople.module.css'
-import { FaChevronDown } from "react-icons/fa";
-import { useState } from 'react';
-import { useEffect } from 'react';
-import ZustandStore from '../../Zustand/ZustandStore';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-import BackArraowBTN from '../../components/BackBtn/BackArraowBTN';
+import { useNavigate } from 'react-router-dom'
+import ZustandStore from '../../Zustand/ZustandStore'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { FiArrowLeft, FiBriefcase, FiMapPin, FiUsers, FiFileText, FiDownload, FiChevronDown, FiChevronUp, FiMail, FiPhone, FiCalendar } from 'react-icons/fi'
 
 const HiringPeople = () => {
-    const user = ZustandStore((state) => state.user);
+    const user = ZustandStore((state) => state.user)
+    const setIsLoading = ZustandStore((state) => state.setIsLoading)
     const navigate = useNavigate()
-    const [drwerOpen, setDrwerOpen] = useState(true)
+    
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [expandedJobs, setExpandedJobs] = useState(new Set())
 
-    const handelDrwer = () => {
-        setDrwerOpen(pre => !pre);
+    const toggleJobExpansion = (jobId) => {
+        setExpandedJobs(prev => {
+            const newSet = new Set(prev)
+            if (newSet.has(jobId)) {
+                newSet.delete(jobId)
+            } else {
+                newSet.add(jobId)
+            }
+            return newSet
+        })
     }
 
     useEffect(() => {
-        try {
-            const response = async () => {
-                if (!user) {
-                    window.location.href = '/login';
-                }
-                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/mycreatedjobs/${user._id}`, { withCredentials: true });
-                if (res?.data?.message === 'No jobs found for this user') {
-                    toast.info('No jobs found for this user');
-                    // You can set this data to a state variable if needed
-                } else {
-                    console.log('Jobs fetched successfully:', res.data.jobs);
-                    // You can set this data to a state variable if needed
-                    setData(res?.data?.jobs || []);
-                }
-            }
-            response();
-        } catch (error) {
-            console.error("Error in HiringPeople component:", error);
-
+        if (!user) {
+            navigate('/login')
+            return
         }
-    },[user]);
+
+        const fetchJobs = async () => {
+            setLoading(true)
+            try {
+                const res = await axios.get(
+                    `${import.meta.env.VITE_BACKEND_URL}/mycreatedjobs/${user._id}`, 
+                    { withCredentials: true }
+                )
+                
+                if (res?.data?.message === 'No jobs found for this user') {
+                    setData([])
+                } else {
+                    setData(res?.data?.jobs || [])
+                }
+            } catch (error) {
+                console.error("Error fetching jobs:", error)
+                toast.error('Failed to load your job postings')
+                setData([])
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchJobs()
+    }, [user, navigate])
 
     return (
         <div className={styles.adminMainContainer}>
-            <div className={styles.backBTN} onClick={() =>navigate('/home')}>
-                <BackArraowBTN width={'2.5rem'} height={"2.5rem"} />
-            </div>
-            <h1>Hiring People</h1>
-            <p>This Section can help to Requiret talented people who can Fill Your Job From</p>
-            {/* You can add more content or components here as needed */}
-            <div className={styles.divider}></div>
+            {/* Back Button */}
+            <button className={styles.backBTN} onClick={() => navigate('/home')}>
+                <FiArrowLeft />
+                <span>Back to Home</span>
+            </button>
 
-            <div className={styles.list}>
-                {
-                    data?.map((item, idx) => (
-                        <div className={`${styles.wrapperCon} ${drwerOpen ? styles.wrapperConExpanded : ''}`} key={idx}>
-                            <div className={styles.wrapper}>    
-                                <h3>Name : {item.companyName || "Demo"}</h3>
-                                <p>Job Title : {item.jobTitle}</p>
-                                <p>Location : {item.location || "Bengaluru"}</p>
+            {/* Header */}
+            <div className={styles.header}>
+                <div className={styles.headerContent}>
+                    <FiUsers className={styles.headerIcon} />
+                    <div>
+                        <h1>Job Applicant Dashboard</h1>
+                        <p>Manage and review applications for your posted jobs</p>
+                    </div>
+                </div>
 
-                                <FaChevronDown className={!drwerOpen ? styles.downArrow : styles.downArrowUP} onClick={handelDrwer} />
-                            </div>
-
-                            <div className={`${styles.dropdownContent} ${drwerOpen ? styles.dropdownOpen : ''}`}>
-                                {
-                                    item?.applicationFillUp.map((applicant, index) => (
-                                        <div key={index}>
-                                            <Link to={`${applicant.pdf}`}>{applicant.pdf}</Link>
-                                            <div className={styles.divider}></div>
-                                        </div>
-                                    ))
-                                }
-
-
-                            </div>
+                <div className={styles.statsBar}>
+                    <div className={styles.statCard}>
+                        <FiBriefcase className={styles.statIcon} />
+                        <div>
+                            <h3>{data.length}</h3>
+                            <p>Active Jobs</p>
                         </div>
-                    ))
-                }
+                    </div>
+                    <div className={styles.statCard}>
+                        <FiUsers className={styles.statIcon} />
+                        <div>
+                            <h3>{data.reduce((acc, job) => acc + (job.applicationFillUp?.length || 0), 0)}</h3>
+                            <p>Total Applications</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            {/* Content */}
+            <div className={styles.content}>
+                {loading ? (
+                    <div className={styles.loadingContainer}>
+                        <div className={styles.spinner}></div>
+                        <p>Loading your job postings...</p>
+                    </div>
+                ) : data.length === 0 ? (
+                    <div className={styles.emptyState}>
+                        <FiBriefcase className={styles.emptyIcon} />
+                        <h3>No Job Postings Yet</h3>
+                        <p>You haven't created any job postings. Start by creating your first job!</p>
+                        <button className={styles.createJobBtn} onClick={() => navigate('/createjob')}>
+                            <FiBriefcase />
+                            Create Job Post
+                        </button>
+                    </div>
+                ) : (
+                    <div className={styles.jobList}>
+                        {data.map((job) => {
+                            const isExpanded = expandedJobs.has(job._id)
+                            const applicantCount = job.applicationFillUp?.length || 0
 
+                            return (
+                                <div className={styles.jobCard} key={job._id}>
+                                    {/* Job Header */}
+                                    <div className={styles.jobHeader} onClick={() => toggleJobExpansion(job._id)}>
+                                        <div className={styles.jobHeaderLeft}>
+                                            <div className={styles.companyLogo}>
+                                                {job.companyPic ? (
+                                                    <img src={job.companyPic} alt={job.companyName} />
+                                                ) : (
+                                                    <FiBriefcase />
+                                                )}
+                                            </div>
+                                            <div className={styles.jobInfo}>
+                                                <h3>{job.jobTitle}</h3>
+                                                <p className={styles.companyName}>{job.companyName}</p>
+                                                <div className={styles.jobMeta}>
+                                                    <span><FiMapPin /> {job.location}</span>
+                                                    <span><FiUsers /> {applicantCount} {applicantCount === 1 ? 'Applicant' : 'Applicants'}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button className={styles.expandBtn}>
+                                            {isExpanded ? <FiChevronUp /> : <FiChevronDown />}
+                                        </button>
+                                    </div>
 
+                                    {/* Applicants List */}
+                                    {isExpanded && (
+                                        <div className={styles.applicantsList}>
+                                            {applicantCount === 0 ? (
+                                                <div className={styles.noApplicants}>
+                                                    <FiUsers className={styles.noApplicantsIcon} />
+                                                    <p>No applications received yet</p>
+                                                </div>
+                                            ) : (
+                                                <div className={styles.applicantsGrid}>
+                                                    <div className={styles.applicantsHeader}>
+                                                        <h4>
+                                                            <FiUsers /> Applications Received ({applicantCount})
+                                                        </h4>
+                                                    </div>
+                                                    {job.applicationFillUp.map((applicant, index) => (
+                                                        <div className={styles.applicantCard} key={index}>
+                                                            <div className={styles.applicantInfo}>
+                                                                <div className={styles.applicantAvatar}>
+                                                                    {index + 1}
+                                                                </div>
+                                                                <div className={styles.applicantDetails}>
+                                                                    <h5>Applicant #{index + 1}</h5>
+                                                                    <p className={styles.resumeLink}>
+                                                                        <FiFileText /> Resume submitted
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <a 
+                                                                href={applicant.pdf} 
+                                                                target="_blank" 
+                                                                rel="noopener noreferrer"
+                                                                className={styles.downloadBtn}
+                                                            >
+                                                                <FiDownload />
+                                                                View Resume
+                                                            </a>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        })}
+                    </div>
+                )}
+            </div>
         </div>
     )
 }

@@ -1,291 +1,446 @@
-.mainContainer{
+/* ========================= */
+/* MAIN CONTAINER */
+/* ========================= */
+
+.mainContainer {
   position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--c1-color);
-}
-.backarrow{
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  box-shadow: 1px 2px 5px #DAA520;
-  overflow: hidden;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #020617 100%);
+  overflow-x: hidden;
+}
+
+/* ========================= */
+/* BACK BUTTON */
+/* ========================= */
+
+.backarrow {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
 }
-.InnnerContainer{
-width: 70%;
-height: 37rem;
-box-shadow: 1px 2px 10px #DAA520;
-display: flex;
-align-items: center;
-justify-content: flex-start;
-flex-direction: column;
-gap: 1rem;
-border-radius: 15px;
-border: 1px solid #FFF;
-background: var(--c1-color);
+
+.backarrow:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--primary);
+  transform: translateX(-5px);
 }
-.InnnerContainer > h1{
-font-size: 2.5rem;
-font-weight: bold;
-background: linear-gradient(90deg, #f1d555, #DAA520);
+
+.backarrow svg {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+/* ========================= */
+/* INNER CONTAINER */
+/* ========================= */
+
+.innerContainer {
+  width: 100%;
+  max-width: 1000px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.headerIcon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-.formContainer{
-width: 100%;
-height: 30rem;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-gap: 1rem;
-overflow: hidden;
-background: transparent;
-}
-.conpanyDetails{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 5rem;
-    background: transparent;
-
-}
-.conpanyDetails > input{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 18rem;
-    height: 3rem;
-    padding-left: 0.8rem;
-    border: none;
-    outline: none;
-    border-radius: 30px;
-    box-shadow: 1px 2px 5px #DAA520;
-    line-height: 1rem;
-    font-size: 1.2rem;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 500;
-    padding-right: 1rem;
-background: transparent;
-color: #fffef0;
+  margin: 0 0 0.8rem 0;
 }
 
-.conpanyDetails > input[type="file"]{
-    padding-top: 0.8rem;
-    font-size: 1rem;
-    background: transparent;
-    
+.header p {
+  font-size: 1rem;
+  color: rgba(203, 213, 225, 0.7);
+  margin: 0;
 }
-.selectLevel{
-    appearance: none; /* Remove native arrow */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="goldenrod" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+/* ========================= */
+/* FORM CONTAINER */
+/* ========================= */
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.formGroup label,
+.descLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.formGroup label svg,
+.descLabel svg {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.formGroup input,
+.selectLevel {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus,
+.selectLevel:focus {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.formGroup input::placeholder {
+  color: rgba(203, 213, 225, 0.4);
+}
+
+.selectLevel {
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="rgb(99, 102, 241)" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 1rem center;
-  background-size: 3rem;
+  background-size: 20px;
   padding-right: 2.5rem;
-     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 18rem;
-    height: 3rem;
-    padding-left: 0.8rem;
-    border: none;
-    outline: none;
-    border-radius: 30px;
-    box-shadow: 1px 2px 5px #DAA520;
-    line-height: 1rem;
-    font-size: 1.2rem;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 500;
-    padding-right: 1rem;
-    cursor: pointer;
-    opacity: 0.9;
-    
-}
-.descriptionBox{
-    width: 100%;
-    height: 14rem;
-    /* border: 1px solid rgb(96, 12, 206); */
-}
-.descriptionBox > P{
-  font-size: 1.1rem;
-  color: #DAA520;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  background: transparent;
 }
 
-
-.mdEditorCustom {
-  font-size: 1rem;
-  background: transparent;
+.selectLevel option {
+  background: #1a1f3a;
+  color: white;
 }
 
+/* ========================= */
+/* FILE INPUT */
+/* ========================= */
 
-/* Wrapper to style the entire MDEditor container */
-.mdEditorWrapper {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+.fileInputWrapper {
+  position: relative;
 }
 
-
-/* Target inner editor */
-.mdEditorWrapper .w-md-editor {
-  background-color: #fffef0;
-  border-radius: 12px;
-}
-
-/* Toolbar customization */
-.mdEditorWrapper .w-md-editor-toolbar {
-  background-color: #fff7cc;
-  border-bottom: 1px solid #daa520;
-  padding: 0.5rem;
-}
-
-/* Editor area */
-.mdEditorWrapper .w-md-editor-content {
-  background-color: #fffef0;
-  color: #242424;
-  font-size: 1rem;
-  padding: 1rem;
-}
-
-/* Remove resizer line on bottom */
-.mdEditorWrapper .w-md-editor-bar {
+.fileInputWrapper input[type="file"] {
   display: none;
 }
 
-.createBTN{
+.fileLabel {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 13rem;
-  height: 3rem;
-  border-radius: 30px;
-  margin-bottom: 1rem;
-  outline: none;
-  background-color: #242424;
-  border: 0.8px solid #FFF;
-  transition: 0.3s ease-in;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  border-radius: 10px;
+  color: rgba(203, 213, 225, 0.9);
+  font-size: 0.95rem;
   cursor: pointer;
-  color: #DAA520;
-  letter-spacing: 0.3px;
-}
-.createBTN:hover{
-transform: scaleX(1.08);
+  transition: all 0.3s ease;
 }
 
+.fileLabel:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: var(--primary);
+}
 
+.checkIcon {
+  color: #10b981;
+  font-size: 1.2rem;
+}
 
+/* ========================= */
+/* DESCRIPTION BOX */
+/* ========================= */
 
+.descriptionBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
 
+.descLabel {
+  margin-bottom: 0;
+}
 
+.mdEditorWrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
 
+/* Dark mode MD Editor styling */
+.mdEditorWrapper :global(.w-md-editor) {
+  background-color: rgba(15, 23, 42, 0.8);
+  color: white;
+  border: none;
+}
 
-/* ========== Responsive Breakpoints ========== */
+.mdEditorWrapper :global(.w-md-editor-toolbar) {
+  background-color: rgba(26, 31, 58, 0.9);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 0.5rem;
+}
 
-/* Tablets and below */
+.mdEditorWrapper :global(.w-md-editor-toolbar) :global(button) {
+  color: rgba(203, 213, 225, 0.8);
+}
+
+.mdEditorWrapper :global(.w-md-editor-toolbar) :global(button:hover) {
+  color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.mdEditorWrapper :global(.w-md-editor-content) {
+  background-color: rgba(15, 23, 42, 0.6);
+  color: white;
+}
+
+.mdEditorWrapper :global(.w-md-editor-text-pre),
+.mdEditorWrapper :global(.w-md-editor-text-input) {
+  color: white !important;
+}
+
+.mdEditorWrapper :global(.w-md-editor-preview) {
+  background-color: rgba(15, 23, 42, 0.6);
+}
+
+.charCount {
+  font-size: 0.85rem;
+  color: rgba(203, 213, 225, 0.6);
+  text-align: right;
+  margin: 0;
+}
+
+/* ========================= */
+/* CREATE BUTTON */
+/* ========================= */
+
+.createBTN {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 350px;
+  padding: 1rem 2rem;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.createBTN:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
+
+.createBTN svg {
+  font-size: 1.2rem;
+}
+
+/* ========================= */
+/* RESPONSIVE DESIGN */
+/* ========================= */
+
 @media (max-width: 1024px) {
-  .InnnerContainer {
-    width: 85%;
-    height: auto;
+  .innerContainer {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
     padding: 1rem;
   }
 
-  .formContainer {
-    height: auto;
-  }
-
-  .conpanyDetails {
-    flex-direction: column;
-    gap: 1rem;
-    height: auto;
-  }
-
-  .conpanyDetails > input,
-  .selectLevel {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .mdEditorWrapper {
-    width: 100%;
-  }
-
-  .descriptionBox {
-    height: auto;
-  }
-}
-
-/* Mobile devices */
-@media (max-width: 600px) {
-  .InnnerContainer > h1 {
-    font-size: 1.8rem;
-    text-align: center;
-  }
-
   .backarrow {
-    top: 0.5rem;
-    left: 0.5rem;
-    width: 2.8rem;
-    height: 2.8rem;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 
-  .conpanyDetails > input,
-  .selectLevel {
-    height: 2.8rem;
-    font-size: 1rem;
-    width: 100%;
+  .backarrow span {
+    display: none;
+  }
+
+  .innerContainer {
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .headerIcon {
+    font-size: 2.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .mdEditorWrapper :global(.w-md-editor) {
+    height: 250px !important;
   }
 
   .createBTN {
-    width: 100%;
-    font-size: 1rem;
-    height: 2.8rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContainer {
+    padding: 0.5rem;
   }
 
-  .descriptionBox > p {
+  .backarrow {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .backarrow svg {
     font-size: 1rem;
+  }
+
+  .innerContainer {
+    padding: 1.5rem 1rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header p {
+    font-size: 0.85rem;
+  }
+
+  .headerIcon {
+    font-size: 2rem;
   }
 
   .formContainer {
     gap: 1.5rem;
   }
 
-  .mdEditorWrapper .w-md-editor-toolbar,
-  .mdEditorWrapper .w-md-editor-content {
-    font-size: 0.9rem;
+  .formGroup label,
+  .descLabel {
+    font-size: 0.85rem;
+  }
+
+  .formGroup input,
+  .selectLevel {
     padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .fileLabel {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .mdEditorWrapper :global(.w-md-editor) {
+    height: 200px !important;
+  }
+
+  .createBTN {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
   }
 }
 
-
-@media (max-width: 600px) {
-  .backarrow {
-    top: 4rem;
-    left: 1.5rem;
-    width: 2.8rem;
-    height: 2.8rem;
-    box-shadow: 1px 1px 3px #DAA520;
+@media (max-width: 360px) {
+  .header h1 {
+    font-size: 1.3rem;
   }
 
-  .InnnerContainer > h1 {
-    font-size: 1.8rem;
-    text-align: center;
+  .formGroup input,
+  .selectLevel {
+    font-size: 0.85rem;
+  }
+
+  .createBTN {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
 

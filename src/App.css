@@ -1,136 +1,44 @@
+:root {
+  --primary: #6366f1;
+  --accent: #8b5cf6;
+  --dark-bg: #0f172a;
+  --text-light: #f1f5f9;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: var(--base-color);
 }
-
-
-:root {
-  --font-size: 100%;
-  --base-color: #FFFFFF;
-  --c1-color: #242424;
-}
-
 
 .appmainConainer {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f3a 50%, #020617 100%);
+  color: var(--text-light);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-@media screen and (max-width: 1930px) {
-  :root {
-    --font-size: 100%;
-    font-size: var(--font-size);
-  }
+/* Toast Container Custom Styles */
+:global(.Toastify__toast-container) {
+  z-index: 9999;
 }
-@media screen and (max-width: 1830px) {
-  :root {
-    --font-size: 99%;
-    font-size: var(--font-size);
-  }
+
+:global(.Toastify__toast) {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 10px;
 }
-@media screen and (max-width: 1730px) {
-  :root {
-    --font-size: 98%;
-    font-size: var(--font-size);
-  }
+
+:global(.Toastify__toast--success) {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
 }
-@media screen and (max-width: 1630px) {
-  :root {
-    --font-size: 96%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 1530px) {
-  :root {
-    --font-size: 95%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 1430px) {
-  :root {
-    --font-size: 93%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 1330px) {
-  :root {
-    --font-size: 91%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 1230px) {
-  :root {
-    --font-size: 90%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 1130px) {
-  :root {
-    --font-size: 85%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 1030px) {
-  :root {
-    --font-size: 80%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 930px) {
-  :root {
-    --font-size: 75%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 830px) {
-  :root {
-    --font-size: 60%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 730px) {
-  :root {
-    --font-size: 55%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 630px) {
-  :root {
-    --font-size: 50%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 530px) {
-  :root {
-    --font-size: 40%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 430px) {
-  :root {
-    --font-size: 30%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 330px) {
-  :root {
-    --font-size: 22%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 230px) {
-  :root {
-    --font-size: 18%;
-    font-size: var(--font-size);
-  }
-}
-@media screen and (max-width: 130px) {
-  :root {
-    --font-size: 15%;
-    font-size: var(--font-size);
-  }
+
+:global(.Toastify__toast--error) {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
 }

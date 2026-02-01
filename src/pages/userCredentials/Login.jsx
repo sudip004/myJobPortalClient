@@ -1,9 +1,10 @@
-import React,{useState} from 'react'
-import styles from './RegisterPage.module.css'
-import { Link,useNavigate } from 'react-router-dom'
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import ZustandStore from '../../Zustand/ZustandStore';
+import React, { useState } from 'react'
+import styles from './Login.module.css'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import ZustandStore from '../../Zustand/ZustandStore'
+import { FiMail, FiLock, FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,15 +37,65 @@ const Login = () => {
     result();
   };
   return (
-     <div className={styles.mainContainer}>
-        <div className={styles.wrapperContainer}>
-            <h1>Login From</h1>
-            <p>No, warry this is a demo from fill any thing for Test this site</p>
-            <input type="text" placeholder='Enter Your Email' onChange={(e)=>setEmail(e.target.value)}/>
-            <input type="text" placeholder='Enter your Password' onChange={(e)=>setPassword(e.target.value)}/>
-            <p>If you are new so, register first <span><Link to='/register'>Register</Link></span></p>
-            <button onClick={handleSubmit}>SIGN UP</button>
+    <div className={styles.mainContainer}>
+      <button className={styles.backButton} onClick={() => navigate('/')}>
+        <FiArrowLeft /> Back to Home
+      </button>
+
+      <div className={styles.wrapperContainer}>
+        <div className={styles.header}>
+          <h1>Welcome Back</h1>
+          <p>Sign in to continue your career journey</p>
         </div>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">
+              <FiMail className={styles.icon} />
+              Email Address
+            </label>
+            <input 
+              id="email"
+              type="email" 
+              placeholder='Enter your email' 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">
+              <FiLock className={styles.icon} />
+              Password
+            </label>
+            <input 
+              id="password"
+              type="password" 
+              placeholder='Enter your password' 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.options}>
+            <label className={styles.rememberMe}>
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <Link to="#" className={styles.forgotPassword}>Forgot password?</Link>
+          </div>
+
+          <button type="submit" className={styles.submitButton}>
+            Sign In <FiArrowRight className={styles.arrowIcon} />
+          </button>
+        </form>
+
+        <div className={styles.footer}>
+          <p>Don't have an account? <Link to='/register'>Create Account</Link></p>
+        </div>
+      </div>
     </div>
   )
 }

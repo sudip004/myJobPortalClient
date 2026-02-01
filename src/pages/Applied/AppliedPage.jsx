@@ -3,14 +3,19 @@ import styles from './AppliedPage.module.css'
 import { useNavigate } from 'react-router-dom'
 import ZustandStore from '../../Zustand/ZustandStore'
 import axios from 'axios'
-import BackArraowBTN from '../../components/BackBtn/BackArraowBTN'
+import { FiArrowLeft, FiBriefcase, FiMapPin, FiDollarSign, FiClock, FiBookmark, FiFileText, FiCheckCircle, FiAlertCircle } from 'react-icons/fi'
+import { toast } from 'react-toastify'
 
 
 const AppliedPage = () => {
   const navigate = useNavigate()
   const user = ZustandStore((state) => state.user)
+  const setIsLoading = ZustandStore((state) => state.setIsLoading)
+  
   const [jobs, setJobs] = useState([])
   const [savedJobs, setSavedJobs] = useState([])
+  const [activeTab, setActiveTab] = useState('applied')
+  const [loading, setLoading] = useState(true)
 
   const handelDescBtn = async (jobDescription,jobID,companyName,Btnopen) => {
      navigate(`/jobdetails/${jobID}`, { state: {  jobDescription, companyName,btnDiable:Btnopen} });
@@ -18,78 +23,167 @@ const AppliedPage = () => {
   }
 
   useEffect(() => {
-  if (!user) {
-    navigate('/login');
-    return;
-  }
-
-  const fetchAppliedJobs = async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/myappliedjobs/${user._id}`, {
-        withCredentials: true
-      });
-      setJobs(res?.data?.appliedJobs || []);
-    } catch (error) {
-      console.error('Error fetching applied jobs:', error);
-      setJobs([]); // fallback empty
+    if (!user) {
+      navigate('/login')
+      return
     }
-  };
 
-  const fetchSavedJobs = async () => {
-    try {
-      const res2 = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/mysavedjobs/${user._id}`, {
-        withCredentials: true
-      });
-      setSavedJobs(res2?.data?.savedJobs || []);
-    } catch (error) {
-      console.error('Error fetching saved jobs:', error);
-      setSavedJobs([]); // fallback empty
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const [appliedRes, savedRes] = await Promise.all([
+          axios.get(`${import.meta.env.VITE_BACKEND_URL}/myappliedjobs/${user._id}`, {
+            withCredentials: true
+          }),
+          axios.get(`${import.meta.env.VITE_BACKEND_URL}/mysavedjobs/${user._id}`, {
+            withCredentials: true
+          })
+        ])
+        
+        setJobs(appliedRes?.data?.appliedJobs || [])
+        setSavedJobs(savedRes?.data?.savedJobs || [])
+      } catch (error) {
+        console.error('Error fetching jobs:', error)
+        toast.error('Failed to load jobs')
+        setJobs([])
+        setSavedJobs([])
+      } finally {
+        setLoading(false)
+      }
     }
-  };
 
-  fetchAppliedJobs();
-  fetchSavedJobs();
-}, []);
+    fetchData()
+  }, [user, navigate])
 
+
+  const renderJobCard = (job, isApplied = false) => (
+    <div className={styles.jobCard} key={job._id}>
+      <div className={styles.cardHeader}>
+        <div className={styles.companyLogo}>
+          {job.companyPic ? (
+            <img src={job.companyPic} alt={job.companyName} />
+          ) : (
+            <FiBriefcase />
+          )}
+        </div>
+        <div className={styles.cardHeaderInfo}>
+          <h3>{job.jobTitle}</h3>
+          <p className={styles.companyName}>{job.companyName}</p>
+        </div>
+        {isApplied && (
+          <div className={styles.appliedBadge}>
+            <FiCheckCircle /> Applied
+          </div>
+        )}
+      </div>
+
+      <div className={styles.cardMeta}>
+        {job.location && (
+          <span>
+            <FiMapPin /> {job.location}
+          </span>
+        )}
+        {job.money && (
+          <span>
+            <FiDollarSign /> ₹{job.money} LPA
+          </span>
+        )}
+        {job.experienceLevel && (
+          <span>
+            <FiClock /> {job.experienceLevel}
+          </span>
+        )}
+      </div>
+
+      <button 
+        className={styles.viewDetailsBtn} 
+        onClick={() => handelDescBtn(job.jobDescription, job._id, job.companyName, isApplied)}
+      >
+        <FiFileText />
+        View Details
+      </button>
+    </div>
+  )
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.backBTN} onClick={() => navigate('/home')}>
-        <BackArraowBTN  width={'2.5rem'} height={"2.5rem"}/>
+      {/* Back Button */}
+      <button className={styles.backBTN} onClick={() => navigate('/home')}>
+        <FiArrowLeft />
+        <span>Back to Jobs</span>
+      </button>
+
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.headerContent}>
+          <FiBriefcase className={styles.headerIcon} />
+          <div>
+            <h1>My Job Applications</h1>
+            <p>Track your applied and saved job opportunities</p>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className={styles.tabs}>
+          <button 
+            className={`${styles.tab} ${activeTab === 'applied' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('applied')}
+          >
+            <FiCheckCircle />
+            Applied Jobs
+            <span className={styles.badge}>{jobs.length}</span>
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'saved' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('saved')}
+          >
+            <FiBookmark />
+            Saved Jobs
+            <span className={styles.badge}>{savedJobs.length}</span>
+          </button>
+        </div>
       </div>
-      <h1 className={styles.title}>Applied Jobs</h1>
-      <p className={styles.description}>Here you can view all the jobs you have applied for.</p>
-      {/* Add your job application components here */}
-      <div className={styles.jobList}>
-        {
-          jobs?.length ===0 ? <p className={styles.noJobs}>OOP's Sorry You Can No jobs applied yet.</p> :
-          // Map through the jobs and display them
-          jobs?.map((job, idx) => (
-            <div className={styles.jobDesc} key={idx}>
-              <p>{job.companyName || "Demo"}</p>
-              <p>{job.jobTitle}</p>
-              <p>{job.location || "Beagaluru"}</p>
-              <button className={styles.descBtn} onClick={()=>handelDescBtn(job.jobDescription,job._id,job.companyName,true)}>description</button>
-            </div>
-          ))
-        }
-      </div>
-        <div className={styles.divider}></div>
-      {/* Another Section */}
-      <h1 className={styles.title}>Saved Jobs</h1>
-      <p className={styles.description}>Here you can view all the jobs you have applied for.</p>
-      <div className={styles.jobList}>
-        {
-          savedJobs?.length ===0 ? <p className={styles.noJobs}>OOP's Sorry You Can No jobs Saved yet.</p> :
-          savedJobs?.map((job, idx) => (
-            <div className={styles.jobDesc} key={idx}>
-              <p>{job.companyName || "Demo"}</p>
-              <p>{job.jobTitle}</p>
-              <p>{job.location || "Beagaluru"}</p>
-              <button className={styles.descBtn} onClick={()=>handelDescBtn(job.jobDescription,job._id,job.companyName,false)}>description</button>
-            </div>
-          ))
-        }
+
+      {/* Content */}
+      <div className={styles.content}>
+        {loading ? (
+          <div className={styles.loadingContainer}>
+            <div className={styles.spinner}></div>
+            <p>Loading jobs...</p>
+          </div>
+        ) : activeTab === 'applied' ? (
+          <div className={styles.jobGrid}>
+            {jobs.length === 0 ? (
+              <div className={styles.emptyState}>
+                <FiAlertCircle className={styles.emptyIcon} />
+                <h3>No Applications Yet</h3>
+                <p>You haven't applied to any jobs yet. Start exploring opportunities!</p>
+                <button className={styles.browseBtn} onClick={() => navigate('/home')}>
+                  <FiBriefcase />
+                  Browse Jobs
+                </button>
+              </div>
+            ) : (
+              jobs.map((job) => renderJobCard(job, true))
+            )}
+          </div>
+        ) : (
+          <div className={styles.jobGrid}>
+            {savedJobs.length === 0 ? (
+              <div className={styles.emptyState}>
+                <FiBookmark className={styles.emptyIcon} />
+                <h3>No Saved Jobs</h3>
+                <p>You haven't saved any jobs yet. Save jobs to apply later!</p>
+                <button className={styles.browseBtn} onClick={() => navigate('/home')}>
+                  <FiBriefcase />
+                  Browse Jobs
+                </button>
+              </div>
+            ) : (
+              savedJobs.map((job) => renderJobCard(job, false))
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

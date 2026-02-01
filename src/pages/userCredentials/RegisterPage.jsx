@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styles from './RegisterPage.module.css'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { FiUser, FiMail, FiLock, FiUpload, FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -49,18 +50,91 @@ const RegisterPage = () => {
   };
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.wrapperContainer}>
-        <h1>Register From</h1>
-        <p>No, warry this is a demo from fill any thing for Test this site</p>
-        <input type="text" placeholder='Enter Your User Name' onChange={(e) => setUserName(e.target.value)} />
-        <input type="text" placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} />
-        <input type="text" placeholder='Enter your Password' onChange={(e) => setPassword(e.target.value)} />
-        <input type="file" name='profilePic' className={styles.myinput}
-          onChange={(e) => setFile(e.target.files[0])} accept="image/*" placeholder='Upload your profile picture'
+      <button className={styles.backButton} onClick={() => navigate('/')}>
+        <FiArrowLeft /> Back to Home
+      </button>
 
-        />
-        <p>If you already register then <span><Link to='/login'>Login</Link></span></p>
-        <button onClick={handleSubmit}>SIGN UP</button>
+      <div className={styles.wrapperContainer}>
+        <div className={styles.header}>
+          <h1>Create Account</h1>
+          <p>Join Job Planet and start your career journey</p>
+        </div>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="username">
+              <FiUser className={styles.icon} />
+              Username
+            </label>
+            <input 
+              id="username"
+              type="text" 
+              placeholder='Enter your username' 
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">
+              <FiMail className={styles.icon} />
+              Email Address
+            </label>
+            <input 
+              id="email"
+              type="email" 
+              placeholder='Enter your email' 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">
+              <FiLock className={styles.icon} />
+              Password
+            </label>
+            <input 
+              id="password"
+              type="password" 
+              placeholder='Create a password' 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="profilePic">
+              <FiUpload className={styles.icon} />
+              Profile Picture (Optional)
+            </label>
+            <div className={styles.fileInputWrapper}>
+              <input 
+                id="profilePic"
+                type="file" 
+                name='profilePic'
+                onChange={(e) => setFile(e.target.files[0])} 
+                accept="image/*"
+                className={styles.fileInput}
+              />
+              <label htmlFor="profilePic" className={styles.fileLabel}>
+                <FiUpload />
+                {file ? file.name : 'Choose file'}
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" className={styles.submitButton}>
+            Create Account <FiArrowRight className={styles.arrowIcon} />
+          </button>
+        </form>
+
+        <div className={styles.footer}>
+          <p>Already have an account? <Link to='/login'>Sign In</Link></p>
+        </div>
       </div>
     </div>
   )

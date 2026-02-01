@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './Card.css'
-import { IoBookmarkOutline } from "react-icons/io5";
-import { FaBookmark } from "react-icons/fa6";
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import ZustandStore from '../../Zustand/ZustandStore';
-import { toast } from 'react-toastify';
+import { IoBookmarkOutline, IoLocationOutline, IoTimeOutline } from "react-icons/io5"
+import { FaBookmark } from "react-icons/fa6"
+import { FiBriefcase, FiDollarSign, FiClock } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import ZustandStore from '../../Zustand/ZustandStore'
+import { toast } from 'react-toastify'
 
 
 const Card = ({ color, img, creatorId, companyName, jobTitle,
@@ -76,35 +77,63 @@ const Card = ({ color, img, creatorId, companyName, jobTitle,
 
 
     return (
-        <div className="cardContainer">
-            <div className="innerContainer" style={{ background: color }}>
-                <div className="datecardcontain">
-                    <div className="cardcontaindatelist">
-                        {new Date(date).toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'long',
-                            year: 'numeric'
-                        })}
+        <div className="cardContainer" onClick={handelClick}>
+            <div className="cardGlassOverlay"></div>
+            
+            <div className="cardHeader">
+                <div className="companyInfo">
+                    <div className="companyLogo">
+                        <img src={img} alt={companyName} />
                     </div>
-                    <div className='cardicon' >{isSaved ? <FaBookmark className='iconEdit' onClick={handelUnSavedJob} /> : <IoBookmarkOutline className='iconEdit' onClick={handelSavedJob} />}</div>
-                </div>
-                <div className="cardHeadingContain">
-                    <p>{companyName}</p>
-                    <div className='CardConatinImg'>
-                        <h2>{jobTitle}</h2>
-                        <img src={img} alt="" className='CardImage' />
+                    <div className="companyDetails">
+                        <p className="companyName">{companyName}</p>
+                        <h3 className="jobTitle">{jobTitle}</h3>
                     </div>
                 </div>
-                <div className="cardOptions">
-                    <div className={experienceLevel == 'Entry Level' ? 'implementExprence' : ''}>Entry Level</div>
-                    <div className={experienceLevel == 'Mid Level' ? 'implementExprence' : ''}>Mid Level</div>
-                    <div className={experienceLevel == 'Senior Level' ? 'implementExprence' : ''}>Senior Level</div>
-                    <div >Project Work</div>
+                <div className='cardBookmark' onClick={(e) => e.stopPropagation()}>
+                    {isSaved ? 
+                        <FaBookmark className='bookmarkIcon saved' onClick={handelUnSavedJob} /> : 
+                        <IoBookmarkOutline className='bookmarkIcon' onClick={handelSavedJob} />
+                    }
                 </div>
             </div>
-            <div className="outerContainerCard">
-                <div>{money}</div>
-                <button onClick={handelClick}>Details</button>
+
+            <div className="cardBody">
+                <div className="cardMeta">
+                    <div className="metaItem">
+                        <FiDollarSign />
+                        <span className="salary">₹{money} LPA</span>
+                    </div>
+                    <div className="metaItem">
+                        <FiBriefcase />
+                        <span>{experienceLevel}</span>
+                    </div>
+                    <div className="metaItem">
+                        <IoTimeOutline />
+                        <span className="date">
+                            {new Date(date).toLocaleDateString('en-GB', {
+                                day: '2-digit',
+                                month: 'short'
+                            })}
+                        </span>
+                    </div>
+                </div>
+
+                <div className="cardDescription">
+                    <p>{jobDescription?.substring(0, 100)}{jobDescription?.length > 100 ? '...' : ''}</p>
+                </div>
+            </div>
+
+            <div className="cardFooter">
+                <div className="experienceTags">
+                    <span className={experienceLevel === 'Entry Level' ? 'tag active' : 'tag'}>Entry</span>
+                    <span className={experienceLevel === 'Mid Level' ? 'tag active' : 'tag'}>Mid</span>
+                    <span className={experienceLevel === 'Senior Level' ? 'tag active' : 'tag'}>Senior</span>
+                </div>
+                <button className="detailsBtn" onClick={handelClick}>
+                    View Details
+                    <FiBriefcase />
+                </button>
             </div>
         </div>
     )

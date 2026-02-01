@@ -1,152 +1,590 @@
+/* ========================= */
+/* MAIN CONTAINER */
+/* ========================= */
+
 .mainContainer {
+  position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background-color: var(--c1-color);
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #020617 100%);
+  overflow-x: hidden;
 }
 
-.noJobs {
-  width: 100%;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: #DAA520;
-  font-weight: 500;
-  background: transparent;
-  margin-top: 5rem;
-}
+/* ========================= */
+/* BACK BUTTON */
+/* ========================= */
 
 .backBTN {
-  width: 2.5rem;
-  height: 2.5rem;
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  cursor: pointer;
-  border-radius: 50%;
+  top: 2rem;
+  left: 2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 5px #ffd700;
-  transition: all 0.3s ease-in-out;
-  background: transparent;
-  border: 1px solid #DAA520;
-  overflow: hidden;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
 }
 
 .backBTN:hover {
-  transform: scaleX(1.1) scaleY(1.1);
+  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--primary);
+  transform: translateX(-5px);
 }
 
-.title {
-  font-size: 1.8rem;
-  background: transparent;
-  color: #DAA520;
-  padding-left: 0.4rem 0.5rem;
-  margin-top: 1rem;
+.backBTN svg {
+  font-size: 1.2rem;
+  color: var(--primary);
 }
 
-.description {
-  font-size: 1rem;
-  background: transparent;
-  color: #DAA520;
-  padding: 0.5rem 0.8rem;
-}
+/* ========================= */
+/* HEADER */
+/* ========================= */
 
-.jobList {
+.header {
   width: 100%;
-  height: 15rem;
+  max-width: 1200px;
+  margin: 5rem auto 2rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-
-  overflow-y: scroll;
-  background: transparent;
-  scroll-behavior: smooth;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-
-/* WebKit Scrollbar (Chrome, Edge, Safari) */
-.jobList::-webkit-scrollbar {
-  width: 8px;
-}
-
-.jobList::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.jobList::-webkit-scrollbar-thumb {
-  background-color: #888;
-  /* Scrollbar color */
-  border-radius: 4px;
-}
-
-.jobList::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-/* Firefox scrollbar */
-.jobList {
-  scrollbar-width: thin;
-  /* auto | thin | none */
-  scrollbar-color: #888 transparent;
-  /* thumb | track */
-}
-
-
-
-
-.jobDesc {
-  width: 100%;
-  height: 3.5rem;
+.headerContent {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  margin-top: 0.8rem;
-  padding: 1rem 1rem;
-  border-bottom: 1px solid rgb(82, 82, 92);
-  background: transparent;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 16px;
 }
 
-.jobDesc>p {
+.headerIcon {
+  font-size: 3rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.headerContent h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.5rem 0;
+}
+
+.headerContent p {
   font-size: 1rem;
-  color: #DAA520;
-  font-weight: 500;
-  background: transparent;
+  color: rgba(203, 213, 225, 0.7);
+  margin: 0;
 }
 
-.descBtn {
+/* ========================= */
+/* TABS */
+/* ========================= */
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 12px;
+  padding: 0.5rem;
+}
+
+.tab {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.8px solid #FFF;
-  outline: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  letter-spacing: 0.8px;
-  background: var(--c1-color);
-  color: #DAA520;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 5px #ffd700;
+  gap: 0.6rem;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: rgba(203, 213, 225, 0.7);
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.descBtn:hover {
-  background-color: #d6b80b;
-  color: #000;
+.tab:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: white;
 }
 
+.tab svg {
+  font-size: 1.1rem;
+}
 
-.divider {
+.activeTab {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+}
+
+.activeTab:hover {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.activeTab .badge {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================= */
+/* CONTENT */
+/* ========================= */
+
+.content {
   width: 100%;
-  height: 1px;
-  background-color: #807f7e;
-  margin: 1rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.jobGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+/* ========================= */
+/* JOB CARD */
+/* ========================= */
+
+.jobCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.jobCard:hover {
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.companyLogo {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.companyLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.companyLogo svg {
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+.cardHeaderInfo {
+  flex: 1;
+}
+
+.cardHeaderInfo h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.companyName {
+  font-size: 0.95rem;
+  color: rgba(203, 213, 225, 0.7);
+  margin: 0;
+}
+
+.appliedBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 6px;
+  color: #10b981;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.appliedBadge svg {
+  font-size: 0.9rem;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.cardMeta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba(203, 213, 225, 0.8);
+}
+
+.cardMeta svg {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.viewDetailsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.viewDetailsBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.viewDetailsBtn svg {
+  font-size: 1rem;
+}
+
+/* ========================= */
+/* EMPTY STATE */
+/* ========================= */
+
+.emptyState {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  color: rgba(99, 102, 241, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.8rem 0;
+}
+
+.emptyState p {
+  font-size: 1rem;
+  color: rgba(203, 213, 225, 0.7);
+  margin: 0 0 2rem 0;
+  max-width: 400px;
+}
+
+.browseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.browseBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
+
+.browseBtn svg {
+  font-size: 1.2rem;
+}
+
+/* ========================= */
+/* LOADING STATE */
+/* ========================= */
+
+.loadingContainer {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1.5rem;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(99, 102, 241, 0.2);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p {
+  font-size: 1rem;
+  color: rgba(203, 213, 225, 0.7);
+  margin: 0;
+}
+
+/* ========================= */
+/* RESPONSIVE DESIGN */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .jobGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    padding: 1rem;
+  }
+
+  .backBTN {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .backBTN span {
+    display: none;
+  }
+
+  .header {
+    margin: 4rem auto 1.5rem;
+  }
+
+  .headerContent {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .headerIcon {
+    font-size: 2.5rem;
+  }
+
+  .headerContent h1 {
+    font-size: 1.6rem;
+  }
+
+  .headerContent p {
+    font-size: 0.9rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tab {
+    padding: 0.9rem 1rem;
+  }
+
+  .jobGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .jobCard {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContainer {
+    padding: 0.5rem;
+  }
+
+  .backBTN {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .backBTN svg {
+    font-size: 1rem;
+  }
+
+  .header {
+    margin: 3.5rem auto 1rem;
+  }
+
+  .headerContent {
+    padding: 1rem;
+  }
+
+  .headerIcon {
+    font-size: 2rem;
+  }
+
+  .headerContent h1 {
+    font-size: 1.3rem;
+  }
+
+  .headerContent p {
+    font-size: 0.85rem;
+  }
+
+  .tab {
+    font-size: 0.85rem;
+    padding: 0.8rem;
+  }
+
+  .badge {
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+  }
+
+  .jobCard {
+    padding: 1.2rem;
+    gap: 1rem;
+  }
+
+  .companyLogo {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+  }
+
+  .companyLogo svg {
+    font-size: 1.5rem;
+  }
+
+  .cardHeaderInfo h3 {
+    font-size: 1.1rem;
+  }
+
+  .companyName {
+    font-size: 0.85rem;
+  }
+
+  .cardMeta {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .cardMeta span {
+    font-size: 0.8rem;
+  }
+
+  .viewDetailsBtn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .emptyIcon {
+    font-size: 3rem;
+  }
+
+  .emptyState h3 {
+    font-size: 1.2rem;
+  }
+
+  .emptyState p {
+    font-size: 0.9rem;
+  }
+
+  .browseBtn {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .headerContent h1 {
+    font-size: 1.1rem;
+  }
+
+  .cardHeaderInfo h3 {
+    font-size: 1rem;
+  }
+
+  .viewDetailsBtn {
+    font-size: 0.85rem;
+  }
 }
