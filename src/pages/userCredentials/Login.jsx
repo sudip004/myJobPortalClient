@@ -27,8 +27,9 @@ const Login = () => {
       const result = await loginUser(email, password);
       
       if (result.success) {
-        // Set user in store
-        setUser(result.user);
+        // Normalize user payload (API may return array)
+        const normalizedUser = Array.isArray(result.user) ? result.user[0] : result.user;
+        setUser(normalizedUser);
         toast.success("Login successful!");
         
         // Add delay for state to update before navigating

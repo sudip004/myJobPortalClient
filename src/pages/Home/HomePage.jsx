@@ -15,6 +15,7 @@ const HomePage = () => {
   const setJobs = ZustandStore((state) => state.setJobs)
   const isLoading = ZustandStore((state) => state.isLoading)
   const setIsLoading = ZustandStore((state) => state.setIsLoading)
+const fetchself = ZustandStore((state) => state.fetchself);
 
   const [filters, setFilters] = useState({
     salary: 1,
@@ -25,15 +26,18 @@ const HomePage = () => {
     jobType: []
   })
 
-  console.log("Use on home",user);
-  
+  useEffect(() => {
+    if (!user) {
+      fetchself().then((res) => {
+        if (!res) {
+          navigate('/login');
+        }
+      })
+    }
+  }, [user, navigate, fetchself])
+
   // Fetch all jobs
   useEffect(() => {
-    if (!user) return
-
-    console.log("Home user is ",user);
-    
-
     const fetchJobs = async () => {
       setIsLoading(true)
       try {

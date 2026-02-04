@@ -28,21 +28,31 @@ const Card = ({ color, img, creatorId, companyName, jobTitle,
         if (!user) return navigate("/login");
 
         try {
+            console.log("savedd", user?._id);
+            
             const response = await axios.patch(
-                `${import.meta.env.VITE_BACKEND_URL}/savejob/${jobID}`,
-                { userId: user._id },
+                `${import.meta.env.VITE_BACKEND_URL}/savethisjob`,
+                { userId: user._id, jobId: jobID }, 
                 { withCredentials: true }
             );
 
+          
             if (response?.data) {
+                
                 const { saved, message } = response.data;
-                // Update internal state
+               // Update internal state
+                const currentSavedPosts = user?.savedPosts || [];
                 setUser({
                     ...user,
-                    savedPosts: [...user.savedPosts, jobID]
+                    savedPosts: [...currentSavedPosts, jobID]
                 });
+                
+                
                 toast.success(message);
             }
+            
+
+           
         } catch (error) {
             console.error("Error saving/unsaving job:", error);
             toast.error("Failed to update saved job.");
@@ -55,7 +65,7 @@ const Card = ({ color, img, creatorId, companyName, jobTitle,
             const response = await axios.delete(
                 `${import.meta.env.VITE_BACKEND_URL}/savejob/${jobID}`,
                 {
-                    data: { userId: user._id }, // ✅ SEND userId INSIDE `data`
+                    data: { userId: user._id },
                     withCredentials: true
                 }
             );
@@ -63,9 +73,10 @@ const Card = ({ color, img, creatorId, companyName, jobTitle,
             if (response?.data) {
                 const { saved, message } = response.data;
                 // Update internal state
+                const currentSavedPosts = user?.savedPosts || [];
                 setUser({
                     ...user,
-                    savedPosts: user.savedPosts.filter(id => id !== jobID)
+                    savedPosts: currentSavedPosts.filter(id => id !== jobID)
                 });
                 toast.success(message);
             }

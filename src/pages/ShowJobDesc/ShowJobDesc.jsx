@@ -33,6 +33,10 @@ const ShowJobDesc = () => {
   })
 
   const jobData = location.state;
+  
+  // Normalize jobData to ensure we have jobID
+  const jobID = jobData?._id || jobData?.jobID;
+  const companyPic = jobData?.companyPic || jobData?.img;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -83,9 +87,16 @@ const ShowJobDesc = () => {
     try {
       setIsLoading(true)
       
+      // Validate jobID exists
+      if (!jobID) {
+        toast.error('Job ID not found. Please go back and try again.')
+        setIsLoading(false)
+        return
+      }
+      
       // First API call - Submit application with resume
       const response = await axios.patch(
-        `${import.meta.env.VITE_BACKEND_URL}/applyjob/${jobData.jobID}`,
+        `${import.meta.env.VITE_BACKEND_URL}/applyjob/${jobID}`,
         formDataToSend,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -95,7 +106,7 @@ const ShowJobDesc = () => {
       
       // Second API call - Track applied jobs for user
       const response2 = await axios.patch(
-        `${import.meta.env.VITE_BACKEND_URL}/appliedjobs/${jobData.jobID}`,
+        `${import.meta.env.VITE_BACKEND_URL}/appliedjobs/${jobID}`,
         { userId: user._id },
         { 
           headers: { 'Content-Type': 'application/json' },
@@ -303,8 +314,8 @@ const ShowJobDesc = () => {
       {/* Job Header */}
       <div className={styles.jobHeader}>
         <div className={styles.companyLogo}>
-          {jobData?.img ? (
-            <img src={jobData.img} alt={jobData?.companyName} />
+          {companyPic ? (
+            <img src={companyPic} alt={jobData?.companyName} />
           ) : (
             <FiBriefcase />
           )}

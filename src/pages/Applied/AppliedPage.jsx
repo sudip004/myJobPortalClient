@@ -44,7 +44,10 @@ const AppliedPage = () => {
         setSavedJobs(savedRes?.data?.savedJobs || [])
       } catch (error) {
         console.error('Error fetching jobs:', error)
-        toast.error('Failed to load jobs')
+        // Don't show error toast if it's just empty results (404)
+        if (error.response?.status !== 404) {
+          toast.error('Failed to load jobs')
+        }
         setJobs([])
         setSavedJobs([])
       } finally {

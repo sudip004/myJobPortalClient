@@ -20,8 +20,10 @@ const Navbar = ({ curUser, filters, setFilters, resetFilters, totalJobs, filtere
     const [open1, setOpen1] = useState(false)
     const [open2, setOpen2] = useState(false)
     const [userMenuOpen, setUserMenuOpen] = useState(false)
+    const [settingsMenuOpen, setSettingsMenuOpen] = useState(false)
     const [searchInput, setSearchInput] = useState('')
     const userMenuRef = useRef(null)
+    const settingsMenuRef = useRef(null)
 
     // Close user menu when clicking outside
     useEffect(() => {
@@ -29,16 +31,19 @@ const Navbar = ({ curUser, filters, setFilters, resetFilters, totalJobs, filtere
             if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
                 setUserMenuOpen(false)
             }
+            if (settingsMenuRef.current && !settingsMenuRef.current.contains(event.target)) {
+                setSettingsMenuOpen(false)
+            }
         }
 
-        if (userMenuOpen) {
+        if (userMenuOpen || settingsMenuOpen) {
             document.addEventListener('mousedown', handleClickOutside)
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
-    }, [userMenuOpen])
+    }, [userMenuOpen, settingsMenuOpen])
 
     const handleLogout = async () => {
         try {
@@ -134,7 +139,7 @@ const Navbar = ({ curUser, filters, setFilters, resetFilters, totalJobs, filtere
                                 zIndex: 1000,
                                 overflow: 'hidden'
                             }}>
-                                <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e7eb' }}>
+                                <div style={{ padding: '12px 16px', borderBottom: '1px solid #929599' }}>
                                     <p style={{ fontWeight: '600', margin: 0 }}>{curUser?.name}</p>
                                     <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0 0 0' }}>{curUser?.email}</p>
                                 </div>
@@ -165,8 +170,76 @@ const Navbar = ({ curUser, filters, setFilters, resetFilters, totalJobs, filtere
                             </div>
                         )}
                     </div>
-                    <div className="settingicon">
+                    <div className="settingicon" ref={settingsMenuRef} onClick={() => setSettingsMenuOpen(!settingsMenuOpen)} style={{ cursor: 'pointer', position: 'relative' }}>
                         <IoSettingsOutline className='settingiconedit' />
+                        {settingsMenuOpen && (
+                            <div className="settingsMenuDropdown" style={{
+                                position: 'absolute',
+                                top: '100%',
+                                right: 0,
+                                marginTop: '10px',
+                                backgroundColor: 'white',
+                                borderRadius: '8px',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                minWidth: '200px',
+                                zIndex: 1000,
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{ padding: '12px 16px', borderBottom: '1px solid #929599' }}>
+                                    <p style={{ fontWeight: '600', margin: 0 }}>{curUser?.name}</p>
+                                    <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0 0 0' }}>{curUser?.email}</p>
+                                </div>
+                                <div style={{ padding: '8px 0' }}>
+                                    <button 
+                                        onClick={() => {
+                                            navigate('/home')
+                                            setSettingsMenuOpen(false)
+                                        }}
+                                        style={{
+                                            width: '100%',
+                                            padding: '10px 16px',
+                                            border: 'none',
+                                            background: 'transparent',
+                                            textAlign: 'left',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            color: '#374151',
+                                            fontWeight: '500',
+                                            transition: 'background 0.2s'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.background = '#f3f4f6'}
+                                        onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                                    >
+                                        <FiUser size={18} />
+                                        Profile
+                                    </button>
+                                    <button 
+                                        onClick={handleLogout} 
+                                        style={{
+                                            width: '100%',
+                                            padding: '10px 16px',
+                                            border: 'none',
+                                            background: 'transparent',
+                                            textAlign: 'left',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            color: '#ef4444',
+                                            fontWeight: '500',
+                                            transition: 'background 0.2s'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.background = '#fef2f2'}
+                                        onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                                    >
+                                        <IoLogOutOutline size={18} />
+                                        Logout
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className="Allerm">
                         <IoNotificationsOutline className='settingiconedit' />
