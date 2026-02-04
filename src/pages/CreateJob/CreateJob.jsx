@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './createjob.module.css'
 import MDEditor from '@uiw/react-md-editor'
 import "@uiw/react-md-editor/markdown-editor.css";
@@ -15,10 +15,17 @@ const CreateJob = () => {
     const navigate = useNavigate()
     const user = ZustandStore(state => state.user)
     const setIsLoading = ZustandStore(state => state.setIsLoading)
+    const fetchself = ZustandStore(state => state.fetchself)
     
-    if (!user) {
-        navigate('/login')
-    }
+    useEffect(() => {
+        if (!user) {
+            fetchself().then((res) => {
+                if (!res) {
+                    navigate('/login')
+                }
+            })
+        }
+    }, [user, fetchself, navigate])
 
     const [formData, setFormData] = useState({
         companyName: '',
@@ -82,6 +89,12 @@ const CreateJob = () => {
 
     const handelClick = async () => {
         if (!validateForm()) return
+
+        if (!user?._id) {
+            toast.error('Please login again to create a job')
+            navigate('/login')
+            return
+        }
 
         const formDataToSend = new FormData()
         formDataToSend.append('companyName', formData.companyName)

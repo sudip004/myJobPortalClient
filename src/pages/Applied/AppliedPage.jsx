@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 const AppliedPage = () => {
   const navigate = useNavigate()
   const user = ZustandStore((state) => state.user)
+  const fetchself = ZustandStore((state) => state.fetchself)
   const setIsLoading = ZustandStore((state) => state.setIsLoading)
   
   const [jobs, setJobs] = useState([])
@@ -23,19 +24,16 @@ const AppliedPage = () => {
   }
 
   useEffect(() => {
-    if (!user) {
-      navigate('/login')
-      return
-    }
+    let cancelled = false
 
-    const fetchData = async () => {
+    const fetchData = async (userId) => {
       setLoading(true)
       try {
         const [appliedRes, savedRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_BACKEND_URL}/myappliedjobs/${user._id}`, {
+          axios.get(`${import.meta.env.VITE_BACKEND_URL}/myappliedjobs/${userId}`, {
             withCredentials: true
           }),
-          axios.get(`${import.meta.env.VITE_BACKEND_URL}/mysavedjobs/${user._id}`, {
+          axios.get(`${import.meta.env.VITE_BACKEND_URL}/mysavedjobs/${userId}`, {
             withCredentials: true
           })
         ])
@@ -55,8 +53,28 @@ const AppliedPage = () => {
       }
     }
 
-    fetchData()
-  }, [user, navigate])
+    const init = async () => {
+      let currentUser = user
+      if (!currentUser) {
+        currentUser = await fetchself()
+      }
+      if (!currentUser?._id) {
+        if (!cancelled) {
+          navigate('/login')
+        }
+        return
+      }
+      if (!cancelled) {
+        fetchData(currentUser._id)
+      }
+    }
+
+    init()
+
+    return () => {
+      cancelled = true
+    }
+  }, [user, navigate, fetchself])
 
 
   const renderJobCard = (job, isApplied = false) => (

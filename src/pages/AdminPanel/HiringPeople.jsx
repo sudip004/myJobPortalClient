@@ -8,6 +8,7 @@ import { FiArrowLeft, FiBriefcase, FiMapPin, FiUsers, FiFileText, FiDownload, Fi
 
 const HiringPeople = () => {
     const user = ZustandStore((state) => state.user)
+    const fetchself = ZustandStore((state) => state.fetchself)
     const setIsLoading = ZustandStore((state) => state.setIsLoading)
     const navigate = useNavigate()
     
@@ -28,16 +29,13 @@ const HiringPeople = () => {
     }
 
     useEffect(() => {
-        if (!user) {
-            navigate('/login')
-            return
-        }
+        let cancelled = false
 
-        const fetchJobs = async () => {
+        const fetchJobs = async (userId) => {
             setLoading(true)
             try {
                 const res = await axios.get(
-                    `${import.meta.env.VITE_BACKEND_URL}/mycreatedjobs/${user._id}`, 
+                    `${import.meta.env.VITE_BACKEND_URL}/mycreatedjobs/${userId}`, 
                     { withCredentials: true }
                 )
                 
@@ -55,8 +53,28 @@ const HiringPeople = () => {
             }
         }
 
-        fetchJobs()
-    }, [user, navigate])
+        const init = async () => {
+            let currentUser = user
+            if (!currentUser) {
+                currentUser = await fetchself()
+            }
+            if (!currentUser?._id) {
+                if (!cancelled) {
+                    navigate('/login')
+                }
+                return
+            }
+            if (!cancelled) {
+                fetchJobs(currentUser._id)
+            }
+        }
+
+        init()
+
+        return () => {
+            cancelled = true
+        }
+    }, [user, navigate, fetchself])
 
     return (
         <div className={styles.adminMainContainer}>

@@ -25,7 +25,7 @@ const Card = ({ color, img, creatorId, companyName, jobTitle,
 
 
     const handelSavedJob = async () => {
-        if (!user) return navigate("/login");
+        if (!user?._id) return navigate("/login");
 
         try {
             console.log("savedd", user?._id);
@@ -59,7 +59,7 @@ const Card = ({ color, img, creatorId, companyName, jobTitle,
         }
     };
     const handelUnSavedJob = async () => {
-        if (!user) return navigate("/login");
+        if (!user?._id) return navigate("/login");
 
         try {
             const response = await axios.delete(
