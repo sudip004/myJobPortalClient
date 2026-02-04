@@ -1,52 +1,77 @@
 import React, { useState } from 'react'
 import styles from './RegisterPage.module.css'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import { FiUser, FiMail, FiLock, FiUpload, FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { registerUser, loginUser } from '../../utils/authUtils'
+import ZustandStore from '../../Zustand/ZustandStore'
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const setUser = ZustandStore((state) => state.setUser);
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can add your form submission logic
-    console.log("Form submitted with:", { userName, email, password, file });
-    const result = async () => {
-      try {
-        // ✅ Use FormData for multipart upload
-        const formData = new FormData();
-        formData.append('name', userName);
-        formData.append('email', email);
-        formData.append('password', password);
-        if (file) {
-          formData.append('profilePic', file); // Must match field name expected in backend: upload.single('profilePic')
-        }
-        const data = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, formData, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data', // ✅ Important!
-          },
-        });
-        if (data) {
-          console.log("Registration successful:", data);
-          // You can handle success here, like showing a message or redirecting
-          toast.success("Registration successful!");
-          navigate('/login'); // Redirect to login page after successful registration
-        }
-
-      } catch (error) {
-        console.error("Error during form submission:", error);
-      }
-    }
-    result();
-    // After submission, you can navigate to another page if needed
     
+    if (loading) return; // Prevent multiple submissions
+    
+    if (!userName || !email || !password) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    setLoading(true);
+    
+    // Show info toast if user uploaded a file
+    if (file) {
+      toast.info("⏳ Uploading image... This may take a moment. Please wait!", {
+        autoClose: 5000,
+        position: "top-center"
+      });
+    }
+    
+    try {
+      const formData = new FormData();
+      formData.append('name', userName);
+      formData.append('email', email);
+      formData.append('password', password);
+      if (file) {
+        formData.append('profilePic', file);
+      }
+      
+      const result = await registerUser(formData);
+      
+      if (result.success) {
+        toast.success("Registration successful! Logging you in...");
+        
+        // Auto-login after registration
+        const loginResult = await loginUser(email, password);
+        
+        if (loginResult.success) {
+          setUser(loginResult.user);
+          toast.success("Welcome to Job Portal!");
+          navigate('/home');
+        } else {
+          // Registration succeeded but auto-login failed, redirect to login
+          toast.info("Please log in with your credentials");
+          navigate('/login');
+        }
+      } else {
+        toast.error(result.message);
+      }
+      
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className={styles.mainContainer}>
@@ -127,8 +152,8 @@ const RegisterPage = () => {
             </div>
           </div>
 
-          <button type="submit" className={styles.submitButton}>
-            Create Account <FiArrowRight className={styles.arrowIcon} />
+          <button type="submit" className={styles.submitButton} disabled={loading}>
+            {loading ? 'Creating Account...' : 'Create Account'} <FiArrowRight className={styles.arrowIcon} />
           </button>
         </form>
 

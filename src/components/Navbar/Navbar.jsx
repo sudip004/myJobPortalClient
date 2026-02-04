@@ -1,20 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './navbar.css'
 import Divider from '../divider/Divider'
-import { IoSettingsOutline, IoNotificationsOutline, IoSearch } from "react-icons/io5"
+import { IoSettingsOutline, IoNotificationsOutline, IoSearch, IoLogOutOutline } from "react-icons/io5"
 import { SlLocationPin } from "react-icons/sl"
 import { BsFillBackpack4Fill } from "react-icons/bs"
 import { RiMoneyRupeeCircleLine } from "react-icons/ri"
-import { FiFilter, FiX } from "react-icons/fi"
-import { Link, useLocation } from 'react-router-dom'
+import { FiFilter, FiX, FiUser } from "react-icons/fi"
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { BiSolidDownArrow } from "react-icons/bi"
+import ZustandStore from '../../Zustand/ZustandStore'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Navbar = ({ curUser, filters, setFilters, resetFilters, totalJobs, filteredCount }) => {
     const { pathname } = useLocation()
+    const navigate = useNavigate()
+    const logout = ZustandStore((state) => state.logout)
     const [open, setOpen] = useState(false)
     const [open1, setOpen1] = useState(false)
     const [open2, setOpen2] = useState(false)
+    const [userMenuOpen, setUserMenuOpen] = useState(false)
     const [searchInput, setSearchInput] = useState('')
+    const userMenuRef = useRef(null)
+
+    // Close user menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+                setUserMenuOpen(false)
+            }
+        }
+
+        if (userMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [userMenuOpen])
+
+    const handleLogout = async () => {
+        try {
+            await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/logout`,
+                {},
+                { withCredentials: true }
+            )
+            logout()
+            toast.success('Logged out successfully')
+            navigate('/')
+        } catch (error) {
+            console.error('Logout error:', error)
+            toast.error('Logout failed')
+        }
+    }
 
     const handleSalaryChange = (e) => {
         setFilters(prev => ({ ...prev, salary: parseInt(e.target.value) }))
@@ -79,8 +119,51 @@ const Navbar = ({ curUser, filters, setFilters, resetFilters, totalJobs, filtere
                     </Link>
                 </div>
                 <div className="headerProfiles">
-                    <div className="prifilePic">
+                    <div className="prifilePic" ref={userMenuRef} onClick={() => setUserMenuOpen(!userMenuOpen)} style={{ cursor: 'pointer', position: 'relative' }}>
                         <img src={curUser?.profilePic} alt="Profile" />
+                        {userMenuOpen && (
+                            <div className="userMenuDropdown" style={{
+                                position: 'absolute',
+                                top: '100%',
+                                right: 0,
+                                marginTop: '10px',
+                                backgroundColor: 'white',
+                                borderRadius: '8px',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                minWidth: '200px',
+                                zIndex: 1000,
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e7eb' }}>
+                                    <p style={{ fontWeight: '600', margin: 0 }}>{curUser?.name}</p>
+                                    <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0 0 0' }}>{curUser?.email}</p>
+                                </div>
+                                <div style={{ padding: '8px 0' }}>
+                                    <button 
+                                        onClick={handleLogout} 
+                                        style={{
+                                            width: '100%',
+                                            padding: '10px 16px',
+                                            border: 'none',
+                                            background: 'transparent',
+                                            textAlign: 'left',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            color: '#ef4444',
+                                            fontWeight: '500',
+                                            transition: 'background 0.2s'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.background = '#fef2f2'}
+                                        onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                                    >
+                                        <IoLogOutOutline size={18} />
+                                        Logout
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className="settingicon">
                         <IoSettingsOutline className='settingiconedit' />

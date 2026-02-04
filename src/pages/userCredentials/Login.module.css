@@ -183,13 +183,29 @@
   gap: 0.5rem;
 }
 
-.submitButton:hover {
+.submitButton:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 12px 35px rgba(99, 102, 241, 0.5);
 }
 
-.submitButton:active {
+.submitButton:active:not(:disabled) {
   transform: translateY(0);
+}
+
+.submitButton:disabled {
+  opacity: 0.8;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  cursor: not-allowed;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 40px rgba(99, 102, 241, 0.6);
+  }
 }
 
 .arrowIcon {

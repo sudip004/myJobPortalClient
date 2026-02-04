@@ -31,6 +31,9 @@ const HomePage = () => {
   useEffect(() => {
     if (!user) return
 
+    console.log("Home user is ",user);
+    
+
     const fetchJobs = async () => {
       setIsLoading(true)
       try {

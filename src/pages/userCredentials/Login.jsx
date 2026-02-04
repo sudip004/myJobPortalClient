@@ -1,40 +1,49 @@
 import React, { useState } from 'react'
 import styles from './Login.module.css'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import ZustandStore from '../../Zustand/ZustandStore'
 import { FiMail, FiLock, FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { loginUser } from '../../utils/authUtils'
 
 const Login = () => {
   const navigate = useNavigate();
   const setUser = ZustandStore((state) => state.setUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can add your form submission logic
-    console.log("Form submitted with:", { email, password });
-    const result = async () => {
-      try {
-        const data = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, { email, password }, {
-          withCredentials: true,
-        });
-        if (data) {
-          console.log("Login successful:", data);
-          // Assuming the response contains user data
-          setUser(data?.data?.user[0]); // Set the user data in Zustand store
-          // You can handle success here, like showing a message or redirecting
-          toast.success("Login successful!");
-          navigate('/home'); // Redirect to home page after successful login
-        }
-        
-      } catch (error) {
-        console.error("Error during form submission:", error);
-        toast.error("Login failed. Please check your credentials.");
-      }
+    
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
     }
-    result();
+
+    setLoading(true);
+
+    try {
+      const result = await loginUser(email, password);
+      
+      if (result.success) {
+        // Set user in store
+        setUser(result.user);
+        toast.success("Login successful!");
+        
+        // Add delay for state to update before navigating
+        setTimeout(() => {
+          navigate("/home", { replace: true });
+        }, 500);
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className={styles.mainContainer}>
@@ -87,8 +96,8 @@ const Login = () => {
             <Link to="#" className={styles.forgotPassword}>Forgot password?</Link>
           </div>
 
-          <button type="submit" className={styles.submitButton}>
-            Sign In <FiArrowRight className={styles.arrowIcon} />
+          <button type="submit" className={styles.submitButton} disabled={loading}>
+            {loading ? 'Signing In...' : 'Sign In'} <FiArrowRight className={styles.arrowIcon} />
           </button>
         </form>
 
